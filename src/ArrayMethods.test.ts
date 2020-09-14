@@ -47,6 +47,15 @@ test('one page from array', () => {
     expect(ArrayMethods.getOnePageFromArray(x,30,3)).toEqual([])
 })
 
+test('countOfPages', () => {
+    let x = [1,2,3,4,5,6,7,8,9]
+    expect(ArrayMethods.getCountOfPages(x, 3)).toEqual(3)
+    expect(ArrayMethods.getCountOfPages(x, 5)).toEqual(2)
+    //expect(ArrayMethods.getCountOfPages(x, 5.5)).toEqual(2)
+    expect(ArrayMethods.getCountOfPages(x, 9)).toEqual(1)
+    expect(ArrayMethods.getCountOfPages(x, 10)).toEqual(1)
+})
+
 test('sort array by few properties', () => {
     let x = [
         {a:1, b:1},
@@ -56,11 +65,20 @@ test('sort array by few properties', () => {
         {a:1, b:1},
         {a:1, b:5}
     ]
-    ArrayMethods.sortArrayOfObjectsByFewProperties(x, [
+    const result = ArrayMethods.sortArrayOfObjectsByFewProperties(x, [
         {propertyName:'a', asc:true},
         {propertyName:'b', asc:true}
     ])
     console.log('x=', x)
+    expect(result).toEqual([
+        {a:1, b:1},
+        {a:1, b:1},
+        {a:1, b:2},
+        {a:1, b:5},
+        {a:2, b:1},
+        {a:3, b:2},
+    ])
+    
 
 })
 
@@ -81,10 +99,38 @@ test('remove duplicates from array of objects', () => {
 
 test('remove duplicates from array', () => {
     let x = [1,1,1,2,2,2,3,3,3]
-    expect(ArrayMethods.removeDuplicatesFromArray(x).length).toEqual(3)
+    expect(ArrayMethods.removeDuplicatesFromArray(x)).toEqual([1,2,3])
 })
 
 test('subtract arrays', () => {
     expect(ArrayMethods.subtractArrays([1,2,3,4,5], [1,2])).toEqual([3,4,5])
     expect(ArrayMethods.subtractArrays([1,2,3], [1,2,3,4,5])).toEqual([])
+})
+
+test('subtract array of objects', () => {
+    const big = [
+        {a:1, b:1},
+        {a:2, b:2},
+        {a:3, b:3},
+        {a:4, b:4}
+    ]
+    const small = [
+        {a:2, b:2},
+        {a:4, b:44}
+    ]
+    expect(ArrayMethods.subtractArrays(big, small, (a,b) => a.a === b.a)).toEqual([
+        {a:1, b:1},
+        {a:3, b:3}
+    ])
+})
+
+test('flatten', () => {
+    const myArray = [1,2,[3,4,[5,6]]]
+    const result = ArrayMethods.flattenArray(myArray)
+    expect(result).toEqual([1,2,3,4,5,6])
+})
+
+test('getAsFlatArray', () => {
+    const result = ArrayMethods.getAsFlatArray(1,2,[3,4,[5,6]])
+    expect(result).toEqual([1,2,3,4,5,6])
 })

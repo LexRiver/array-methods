@@ -3,9 +3,6 @@ import { SortBy } from "./SortBy";
 type ObjectLike = {[key:string]:any}
 
 export module ArrayMethods{
-    export function subtractArrays(big:Array<any>, small:Array<any>){
-        return big.filter(n => !small.includes(n));
-    }
 
     /**
      * Shuffles array in place
@@ -21,7 +18,7 @@ export module ArrayMethods{
     }
 
     /**
-     * Recursively flatten any array
+     * Recursively flatten any array. Returns new array.
      * @param a any array
      */
     export function flattenArray(a: Array<any>) {
@@ -29,7 +26,7 @@ export module ArrayMethods{
     }
 
     /**
-     * Recursively flatten if array and converts to array if value
+     * Convert all arguments to array and recursively flatten it
      * @param x array or value
      */
     export function getAsFlatArray(...x:any){
@@ -109,7 +106,7 @@ export module ArrayMethods{
 
 
     /**
-     * Sort array of object in place. Returns void.
+     * Sort array of object in place.
      * @param array 
      * @param sortBy 
      */
@@ -209,24 +206,36 @@ export module ArrayMethods{
 
 
     /**
-     * Ыeturns a shallow copy of a portion of an array into a new array
+     * Returns a shallow copy of a portion of an array into a new array
      * @param array 
      * @param pageNumber starting from 1
-     * @param count count of items per page
+     * @param countOfItemsPerPage count of items per page
      */
-    export function getOnePageFromArray(array:any[], pageNumber:number, count:number){
-        let offset = (pageNumber-1)*count
+    export function getOnePageFromArray(array:any[], pageNumber:number, countOfItemsPerPage:number){
+        let offset = (pageNumber-1)*countOfItemsPerPage
         if(offset < 0) offset =0
-        count = Number(count) || 100
-        if(count < 1) count = 100
+        countOfItemsPerPage = Number(countOfItemsPerPage) || 100
+        if(countOfItemsPerPage < 1) countOfItemsPerPage = 100
 
-        return array.slice(offset, offset+count)
+        return array.slice(offset, offset+countOfItemsPerPage)
+    }
 
+    /**
+     * Returns total count of pages in array
+     * @param array any array
+     * @param countOfItemsPerPage must be greater than 0
+     */
+    export function getCountOfPages(array:any[], countOfItemsPerPage:number){
+        if(array.length === 0) return 0
+        if(countOfItemsPerPage<=0) throw new Error('wrong countOfItemsPerPage:'+countOfItemsPerPage)
+        let result = Math.floor(array.length / countOfItemsPerPage)
+        if(array.length % countOfItemsPerPage > 0) result++
+        return result
     }
 
 
     /**
-     * Ыeturns new array without duplicates
+     * Returns new array without duplicates
      * @param array 
      * @param checkIfSame 
      */
@@ -234,5 +243,17 @@ export module ArrayMethods{
         return array.filter((item, index, self) => index === self.findIndex(x => checkIfSame ? checkIfSame(x, item) : x === item))
     }
 
+    /**
+     * Returns new array that equals bigArray without elements from smallArray
+     * @param big 
+     * @param small 
+     * @param checkIfSame 
+     */
+    export function subtractArrays<T>(big:T[], small:T[], checkIfSame?:(a:T, b:T)=>boolean){
+        if(checkIfSame){
+            return big.filter(item => small.findIndex(smallItem => checkIfSame(item, smallItem)) === -1)
+        }
+        return big.filter(n => !small.includes(n));
+    }
 
 }
