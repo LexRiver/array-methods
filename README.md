@@ -8,7 +8,7 @@ Methods for working with array:
 * remove duplicates
 * subtract arrays
 
-## Installation
+## Install
 
 `npm install @lexriver/array-methods`
 
@@ -27,7 +27,8 @@ import {ArrayMethods} from '@lexriver/array-methods'
 ArrayMethods.shuffleArrayInPlace(myArray)
 ```
 
----
+<br/>
+<br/>
 
 ### ArrayMethods.flattenArray(array:any[])
 Recursively flatten any array. Returns new array.
@@ -38,7 +39,9 @@ const result = ArrayMethods.flattenArray(myArray)
 // result = [1, 2, 3, 4, 5, 6]
 ```
 
----
+
+<br/>
+<br/>
 
 ### ArrayMethods.getAsFlatArray(...x:any)
 Convert all arguments to array and recursively flatten it
@@ -53,7 +56,10 @@ const result = ArrayMethods.getAsFlatArray(1, 2, [3, 4, [5, 6]])
 // result = [1, 2, 3, 4, 5, 6]
 ```
 
----
+
+<br/>
+<br/>
+
 
 ### ArrayMethods.sortArrayOfObjectsInPlace(array:T[], sortBy:SortBy)
 
@@ -95,7 +101,9 @@ ArrayMethods.sortArrayOfObjectsInPlace(x, {propertyName: 'a', asc: false})
 */
 ```
 
----
+
+<br/>
+<br/>
 
 ### ArrayMethods.sortArrayOfObjectsByFewProperties(array:T[], sortBy:Array<SortBy<T>>)
 
@@ -126,7 +134,9 @@ const result = ArrayMethods.sortArrayOfObjectsByFewProperties(x, [
 */
 ```
 
----
+
+<br/>
+<br/>
 
 ### ArrayMethods.getOnePageFromArray(array:any[], pageNumber:number, countOfItemsPerPage:number)
 
@@ -145,7 +155,11 @@ const result = ArrayMethods.getOnePageFromArray(x, 2, 3)
 
 ```
 
----
+
+
+<br/>
+<br/>
+
 
 ### ArrayMethods.getCountOfPages(array:any[], countOfItemsPerPage:number)
 
@@ -168,7 +182,10 @@ const result = ArrayMethods.getCountOfPages(x, 5)
 // result = 2 
 ```
 
----
+
+<br/>
+<br/>
+
 
 ### ArrayMethods.removeDuplicatesFromArray(array:T[], checkIfSame?:(a:T, b:T) => boolean)
 
@@ -203,7 +220,9 @@ result = [
 */
 ```
 
----
+<br/>
+<br/>
+
 
 ### ArrayMethods.subtractArrays<T>(big:T[], small:T[], checkIfSame?:(a:T, b:T)=>boolean)
 

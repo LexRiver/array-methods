@@ -1,7 +1,7 @@
 {
     "sideEffects": false,
     "name": "@lexriver/array-methods",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "",
     "main": "out/index.js",
     "types": "out/index.d.ts",
@@ -9,7 +9,7 @@
         "test": "jest",
         "build": "tsc"
     },
-    "keywords": ["array"],
+    "keywords": ["array", "flatten", "shuffle", "sort"],
     "author": "LexRiver <LexRiver@gmail.com> (https://github.com/LexRiver/)",
     "license": "MIT",
     "repository": {
