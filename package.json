@@ -1,6 +1,6 @@
 {
     "sideEffects": false,
-    "name": "@lex/array-methods",
+    "name": "@lexriver/array-methods",
     "version": "1.0.0",
     "description": "",
     "main": "out/index.js",

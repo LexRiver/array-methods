@@ -15,7 +15,7 @@ Methods for working with array:
 ## Import
 
 ```typescript
-import {ArrayMethods} from '@lex/array-methods'
+import {ArrayMethods} from '@lexriver/array-methods'
 
 ```
 
