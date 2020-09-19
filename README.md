@@ -10,7 +10,7 @@ Methods for working with array:
 
 ## Installation
 
-`npm install @lex/array-methods`
+`npm install @lexriver/array-methods`
 
 ## Import
 
