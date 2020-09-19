@@ -1,6 +1,12 @@
 # ArrayMethods
 
-Methods for working with array
+Methods for working with array:
+* flatten
+* shuffle
+* sort array of object by different object properties
+* get one page (slice) from array
+* remove duplicates
+* subtract arrays
 
 ## Installation
 
