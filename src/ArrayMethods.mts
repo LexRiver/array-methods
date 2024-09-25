@@ -1,4 +1,4 @@
-import { SortBy } from "./SortBy";
+import { SortBy } from "./SortBy.mjs";
 
 type ObjectLike = {[key:string]:any}
 
@@ -35,7 +35,7 @@ export module ArrayMethods{
         } else return [...x]
     }
 
-    function sortBySimpleCompare<T>(array:Array<T>, sortBy:SortBy<T>){
+    function sortBySimpleCompare<T extends ObjectLike>(array:Array<T>, sortBy:SortBy<T>){
         array.sort((a,b) => {
             if (a[sortBy.propertyName] === b[sortBy.propertyName]) {
                 return 0;

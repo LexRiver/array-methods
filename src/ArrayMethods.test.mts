@@ -1,4 +1,5 @@
-import { ArrayMethods } from "./ArrayMethods"
+import { expect, test } from 'vitest'
+import { ArrayMethods } from "./ArrayMethods.mjs"
 
 test('sort array', () => {
     //TODO:

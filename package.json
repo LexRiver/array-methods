@@ -1,15 +1,20 @@
 {
     "sideEffects": false,
     "name": "@lexriver/array-methods",
-    "version": "1.0.2",
-    "description": "",
-    "main": "out/index.js",
-    "types": "out/index.d.ts",
+    "version": "2.0.0",
+    "description": "Methods for array",
+    "type": "module",
+    "exports": "./out/src/index.mjs",
     "scripts": {
-        "test": "jest",
-        "build": "tsc"
+        "test": "vitest",
+        "build": "rimraf out && tsc"
     },
-    "keywords": ["array", "flatten", "shuffle", "sort"],
+    "keywords": [
+        "array",
+        "flatten",
+        "shuffle",
+        "sort"
+    ],
     "author": "LexRiver <LexRiver@gmail.com> (https://github.com/LexRiver/)",
     "license": "MIT",
     "repository": {
@@ -17,11 +22,9 @@
         "url": "git+https://github.com/LexRiver/array-methods.git"
     },
     "devDependencies": {
-        "@types/jest": "^24.0.18",
-        "@types/node": "^12.12.12",
-        "jest": "^24.9.0",
-        "ts-jest": "^24.2.0",
-        "typescript": "^3.8.3"
-    },
-    "dependencies": {}
+        "@types/node": "^22.7.0",
+        "rimraf": "^6.0.1",
+        "typescript": "^5.6.2",
+        "vitest": "^2.1.1"
+    }
 }
