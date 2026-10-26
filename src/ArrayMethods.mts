@@ -35,20 +35,26 @@ export module ArrayMethods{
         } else return [...x]
     }
 
+    function compareNullishValues(a:any, b:any):number|undefined{
+        const aIsNullish = a === undefined || a === null
+        const bIsNullish = b === undefined || b === null
+
+        if(aIsNullish && bIsNullish) return 0
+        if(aIsNullish) return 1
+        if(bIsNullish) return -1
+        return undefined
+    }
+
     function sortBySimpleCompare<T extends ObjectLike>(array:Array<T>, sortBy:SortBy<T>){
         array.sort((a,b) => {
-            if (a[sortBy.propertyName] === b[sortBy.propertyName]) {
-                return 0;
-            }
-            
-            if (a[sortBy.propertyName] === undefined || a[sortBy.propertyName] === null) {
-                return 1;
-            }
-            if (b[sortBy.propertyName] === undefined || b[sortBy.propertyName] === null) {
-                return -1;
-            }
+            const aValue = a[sortBy.propertyName]
+            const bValue = b[sortBy.propertyName]
+            if (aValue === bValue) return 0
+
+            const nullishComparison = compareNullishValues(aValue, bValue)
+            if(nullishComparison !== undefined) return nullishComparison
         
-            if(a[sortBy.propertyName] < b[sortBy.propertyName]){
+            if(aValue < bValue){
                 return sortBy.asc ? -1: 1
             } else {
                 return sortBy.asc ? 1: -1
@@ -58,19 +64,15 @@ export module ArrayMethods{
 
     function sortByCompareStringToDate<T extends ObjectLike>(array:Array<T>, sortBy:SortBy<T>){
         array.sort((a,b) => {
-            if (a[sortBy.propertyName] === b[sortBy.propertyName]) {
-                return 0;
-            }
-            
-            if (a[sortBy.propertyName] === undefined || a[sortBy.propertyName] === null) {
-                return 1;
-            }
-            if (b[sortBy.propertyName] === undefined || b[sortBy.propertyName] === null) {
-                return -1;
-            }
+            const aValue = a[sortBy.propertyName]
+            const bValue = b[sortBy.propertyName]
+            if (aValue === bValue) return 0
 
-            let date1 = new Date(a[sortBy.propertyName])
-            let date2 = new Date(b[sortBy.propertyName])
+            const nullishComparison = compareNullishValues(aValue, bValue)
+            if(nullishComparison !== undefined) return nullishComparison
+
+            let date1 = new Date(aValue)
+            let date2 = new Date(bValue)
 
             if(date1 == date2) return 0
         
@@ -85,20 +87,16 @@ export module ArrayMethods{
     function sortByCollator<T extends ObjectLike>(array:Array<T>, sortBy:SortBy<T>){
         const collator = new Intl.Collator(sortBy.locale)
         array.sort((a,b) => {
-            if (a[sortBy.propertyName] === b[sortBy.propertyName]) {
-                return 0;
-            }
-            
-            if (a[sortBy.propertyName] === undefined || a[sortBy.propertyName] === null) {
-                return 1;
-            }
-            if (b[sortBy.propertyName] === undefined || b[sortBy.propertyName] === null) {
-                return -1;
-            }
+            const aValue = a[sortBy.propertyName]
+            const bValue = b[sortBy.propertyName]
+            if (aValue === bValue) return 0
+
+            const nullishComparison = compareNullishValues(aValue, bValue)
+            if(nullishComparison !== undefined) return nullishComparison
 
             return sortBy.asc
-                ? collator.compare(a[sortBy.propertyName], b[sortBy.propertyName])
-                : collator.compare(b[sortBy.propertyName], a[sortBy.propertyName])
+                ? collator.compare(aValue, bValue)
+                : collator.compare(bValue, aValue)
         })
     }
 
@@ -121,11 +119,12 @@ export module ArrayMethods{
         if(!hasCollator){
             sortBySimpleCompare(array, sortBy)
 
-        } else if(array[0] && array[0].hasOwnProperty(sortBy.propertyName)){ // we have some data
-            if(typeof array[0][sortBy.propertyName] === 'number'){
+        } else {
+            const sampleValue = array.find(item => item[sortBy.propertyName] !== undefined && item[sortBy.propertyName] !== null)?.[sortBy.propertyName]
+            if(typeof sampleValue === 'number'){
                 sortBySimpleCompare(array, sortBy) // sort numbers
 
-            } else if(typeof array[0][sortBy.propertyName] === 'string' && sortBy.parseStringToDate){
+            } else if(typeof sampleValue === 'string' && sortBy.parseStringToDate){
                 sortByCompareStringToDate(array, sortBy) // sort string dates
 
             } else {

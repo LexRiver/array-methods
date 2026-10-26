@@ -39,6 +39,24 @@ test('sort array of number values', () => {
 })
 
 
+test('sorts when the first item has no property and keeps nullish values last', () => {
+    const items:{id:string, score?:number|null}[] = [
+        {id:'missing'},
+        {id:'three', score:3},
+        {id:'null', score:null},
+        {id:'one', score:1}
+    ]
+    const ascending = [...items]
+    const descending = [...items]
+
+    ArrayMethods.sortArrayOfObjectsInPlace(ascending, {propertyName:'score', asc:true})
+    ArrayMethods.sortArrayOfObjectsInPlace(descending, {propertyName:'score', asc:false})
+
+    expect(ascending.map(item => item.id)).toEqual(['one', 'three', 'missing', 'null'])
+    expect(descending.map(item => item.id)).toEqual(['three', 'one', 'missing', 'null'])
+})
+
+
 test('one page from array', () => {
     let x = 'abcdefghijklmnopqrstuvwxyz'.split('')
     expect(ArrayMethods.getOnePageFromArray(x, 1, 3)).toEqual(['a', 'b', 'c'])
