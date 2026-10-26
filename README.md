@@ -72,7 +72,7 @@ __Parameters__
     * `locale?: string` - optional locale, ex: 'en-US', or 'en', see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
     * `parseStringToDate?: boolean` - if true, property value be parsed to date. Use this option for sort by date which is stored as a string.
 
-`null` and `undefined` property values are always placed after non-nullish values, preserving their relative order.
+`null` and `undefined` property values are always placed after non-nullish values, preserving their relative order. When `parseStringToDate` is enabled, invalid dates are placed after valid dates.
 
 
 __Example__

@@ -71,16 +71,17 @@ export module ArrayMethods{
             const nullishComparison = compareNullishValues(aValue, bValue)
             if(nullishComparison !== undefined) return nullishComparison
 
-            let date1 = new Date(aValue)
-            let date2 = new Date(bValue)
+            const timestamp1 = new Date(aValue).getTime()
+            const timestamp2 = new Date(bValue).getTime()
+            const dateValidityComparison = compareNullishValues(
+                Number.isNaN(timestamp1) ? null : timestamp1,
+                Number.isNaN(timestamp2) ? null : timestamp2
+            )
 
-            if(date1 == date2) return 0
-        
-            if(date1 < date2){
-                return sortBy.asc ? -1: 1
-            } else {
-                return sortBy.asc ? 1: -1
-            }
+            if(dateValidityComparison !== undefined) return dateValidityComparison
+            if(timestamp1 === timestamp2) return 0
+            if(timestamp1 < timestamp2) return sortBy.asc ? -1: 1
+            return sortBy.asc ? 1: -1
         })
     }
 

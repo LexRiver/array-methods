@@ -57,6 +57,30 @@ test('sorts when the first item has no property and keeps nullish values last', 
 })
 
 
+test('sorts equal and invalid date strings consistently', () => {
+    const items = [
+        {id:'invalid-one', date:'not-a-date'},
+        {id:'equal-one', date:'2024-01-01T00:00:00.000Z'},
+        {id:'later', date:'2024-01-02T00:00:00.000Z'},
+        {id:'equal-two', date:'2023-12-31T19:00:00.000-05:00'},
+        {id:'invalid-two', date:'also-not-a-date'},
+        {id:'earlier', date:'2023-12-01T00:00:00.000Z'}
+    ]
+    const ascending = [...items]
+    const descending = [...items]
+
+    ArrayMethods.sortArrayOfObjectsInPlace(ascending, {propertyName:'date', asc:true, parseStringToDate:true})
+    ArrayMethods.sortArrayOfObjectsInPlace(descending, {propertyName:'date', asc:false, parseStringToDate:true})
+
+    expect(ascending.map(item => item.id)).toEqual([
+        'earlier', 'equal-one', 'equal-two', 'later', 'invalid-one', 'invalid-two'
+    ])
+    expect(descending.map(item => item.id)).toEqual([
+        'later', 'equal-one', 'equal-two', 'earlier', 'invalid-one', 'invalid-two'
+    ])
+})
+
+
 test('one page from array', () => {
     let x = 'abcdefghijklmnopqrstuvwxyz'.split('')
     expect(ArrayMethods.getOnePageFromArray(x, 1, 3)).toEqual(['a', 'b', 'c'])
