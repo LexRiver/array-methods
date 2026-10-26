@@ -57,6 +57,21 @@ test('countOfPages', () => {
     expect(ArrayMethods.getCountOfPages(x, 10)).toEqual(1)
 })
 
+test('sort array by few properties when the first property value is undefined', () => {
+    const x:{a?:number, b:number}[] = [
+        {b:2},
+        {b:1}
+    ]
+
+    expect(ArrayMethods.sortArrayOfObjectsByFewProperties(x, [
+        {propertyName:'a', asc:true},
+        {propertyName:'b', asc:true}
+    ])).toEqual([
+        {b:1},
+        {b:2}
+    ])
+})
+
 test('sort array by few properties', () => {
     let x = [
         {a:1, b:1},

@@ -194,7 +194,7 @@ export module ArrayMethods{
         let prevPropertyValue:any = undefined
         
         for(let item of array){
-            if(item[property] !== prevPropertyValue){
+            if(resultIndex === -1 || item[property] !== prevPropertyValue){
                 resultIndex++
                 result[resultIndex] = []
             }
