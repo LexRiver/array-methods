@@ -90,6 +90,16 @@ test('one page from array', () => {
     expect(ArrayMethods.getOnePageFromArray(x,30,3)).toEqual([])
 })
 
+test('normalizes page number and page size before calculating the offset', () => {
+    const x = 'abcdefghij'.split('')
+
+    expect(ArrayMethods.getOnePageFromArray(x, Number.NaN, 3)).toEqual(['a', 'b', 'c'])
+    expect(ArrayMethods.getOnePageFromArray(x, 2.9, 3)).toEqual(['d', 'e', 'f'])
+    expect(ArrayMethods.getOnePageFromArray(x, 2, 2.9)).toEqual(['c', 'd'])
+    expect(ArrayMethods.getOnePageFromArray(x, 2, 0)).toEqual([])
+    expect(ArrayMethods.getOnePageFromArray(x, Number.POSITIVE_INFINITY, 3)).toEqual(['a', 'b', 'c'])
+})
+
 test('countOfPages', () => {
     let x = [1,2,3,4,5,6,7,8,9]
     expect(ArrayMethods.getCountOfPages(x, 3)).toEqual(3)

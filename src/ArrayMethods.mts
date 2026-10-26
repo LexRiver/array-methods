@@ -212,12 +212,17 @@ export module ArrayMethods{
      * @param countOfItemsPerPage count of items per page
      */
     export function getOnePageFromArray(array:any[], pageNumber:number, countOfItemsPerPage:number){
-        let offset = (pageNumber-1)*countOfItemsPerPage
-        if(offset < 0) offset =0
-        countOfItemsPerPage = Number(countOfItemsPerPage) || 100
-        if(countOfItemsPerPage < 1) countOfItemsPerPage = 100
+        const normalizedPageNumber = normalizePositiveInteger(pageNumber, 1)
+        const normalizedPageSize = normalizePositiveInteger(countOfItemsPerPage, 100)
+        const offset = (normalizedPageNumber-1)*normalizedPageSize
 
-        return array.slice(offset, offset+countOfItemsPerPage)
+        return array.slice(offset, offset+normalizedPageSize)
+    }
+
+    function normalizePositiveInteger(value:number, fallback:number){
+        const numericValue = Number(value)
+        if(!Number.isFinite(numericValue) || numericValue < 1) return fallback
+        return Math.floor(numericValue)
     }
 
     /**

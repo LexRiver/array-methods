@@ -145,8 +145,10 @@ Returns a shallow copy of a portion of an array into a new array
 
 __Parameters__
 * `array: any[]` - any array
-* `pageNumber: number` - page number starting from 1
-* `countOfItemsPerPage: number` - count of items per page
+* `pageNumber: number` - page number starting from 1; invalid values default to 1
+* `countOfItemsPerPage: number` - count of items per page; invalid values default to 100
+
+Positive fractional page numbers and sizes are rounded down.
 
 __Example__
 ```typescript
